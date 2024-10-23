@@ -14,7 +14,7 @@ const Navbar = () => {
       <nav className="nav">
         <Link href="/" className="flex items-center gap-1">
           <Image src="/assets/icons/logo.svg" width={27} height={27} alt="logo" />
-          <p className="nav-logo">Tag<span className="text-blue-900">Zen</span></p>
+          <p className="nav-logo">Tag<span className="text-red-900">Zen</span></p>
         </Link>
 
         <div className="flex items-center gap-5">
