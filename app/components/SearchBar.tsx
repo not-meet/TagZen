@@ -28,6 +28,7 @@ const SearchBar = () => {
 
     try {
       setIsLoading(true)
+      //scraping
     } catch (e) {
       console.log(e)
     } finally {
