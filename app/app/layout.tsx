@@ -20,6 +20,9 @@ const geistMono = localFont({
 export const metadata: Metadata = {
   title: "TagZen",
   description: "Track product prices effortlessly!",
+  icons: {
+    icon: '/assets/icons/logo.svg'
+  }
 };
 
 export default function RootLayout({
