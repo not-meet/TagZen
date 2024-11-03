@@ -48,3 +48,17 @@ export async function getProductByid(productId: string) {
     console.log(error)
   }
 }
+
+//getting all the scrapAndStoreProducts
+
+export async function getAllProducts() {
+  try {
+    connectToDB();
+
+    const products = await Product.find();
+
+    return products;
+  } catch (e) {
+    console.log(e);
+  }
+}

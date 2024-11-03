@@ -2,7 +2,9 @@ import React from "react";
 import Image from "next/image";
 import SearchBar from "@/components/SearchBar";
 import HeroCarousel from "@/components/HeroCarousel";
-export default function Home() {
+import { getAllProducts } from "@/lib/actions";
+export default async function Home() {
+  const allProducts = await getAllProducts()
   return (
     <>
       <section className="px-6 md:px-20 py-16">
@@ -24,8 +26,8 @@ export default function Home() {
         <h2 className="section-text">Trending</h2>
 
         <div className="flex flex-wrap gap-x-8 gap-y-16">
-          {['apple', 'iphone', 'book', 'Sneakers'].map((product) => (
-            <div>{product}</div>
+          {allProducts?.map((product) => (
+            <div>{product.title}</div>
           ))}
         </div>
       </section>
