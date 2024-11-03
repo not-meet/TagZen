@@ -5,6 +5,7 @@ import Product from "../models/product.models";
 import { connectToDB } from "../mongoose";
 import { scrapeAmazonProduct } from "../scraper";
 import { getAveragePrice, getHighestPrice, getLowestPrice } from '../utils'
+import { connect } from 'http2';
 
 export async function scrapAndStoreProducts(productUrl: string) {
   if (!productUrl) return;
@@ -31,5 +32,19 @@ export async function scrapAndStoreProducts(productUrl: string) {
     revalidatePath(`/products/${newProduct._id}`);
   } catch (error: any) {
     throw new Error(`failed to create/update product: ${error.message}`);
+  }
+}
+
+//getting the product in the website seperate page
+
+export async function getProductByid(productId: string) {
+  try {
+    connectToDB();
+
+    const product = await Product.findOne({ _id: productId });
+    if (!product) return null;
+    return product
+  } catch (error) {
+    console.log(error)
   }
 }
