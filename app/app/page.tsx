@@ -3,6 +3,7 @@ import Image from "next/image";
 import SearchBar from "@/components/SearchBar";
 import HeroCarousel from "@/components/HeroCarousel";
 import { getAllProducts } from "@/lib/actions";
+import ProductCard from '@/components/ProductCard'
 export default async function Home() {
   const allProducts = await getAllProducts()
   return (
@@ -14,7 +15,7 @@ export default async function Home() {
               <Image src="/assets/icons/arrow-right.svg" alt='arrow-right' width={26} height={26} />
             </p>
 
-            <h1 className="head-text">Get Steps Ahead with <span className="text-primary">TagZen!</span></h1>
+            <h1 className="head-text">Go Steps Ahead with <span className="text-primary">TagZen!</span></h1>
             <p className="mt-6">Powerfull, self-serve product and growth analytics to help you convert, engage and retain more..</p>
             <SearchBar />
           </div>
@@ -27,7 +28,7 @@ export default async function Home() {
 
         <div className="flex flex-wrap gap-x-8 gap-y-16">
           {allProducts?.map((product) => (
-            <div>{product.title}</div>
+            <ProductCard key={product._id} product={product} />
           ))}
         </div>
       </section>
