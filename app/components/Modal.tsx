@@ -1,33 +1,32 @@
 'use client'
 
-import React from "react";
+import React, { Fragment } from "react";
 import { useState } from 'react'
-import { Dialog } from '@headlessui/react'
+import { Dialog, Transition } from '@headlessui/react'
 
 const Modal = () => {
   let [isOpen, setIsOpen] = useState(true)
-
+  const openModal = () => setIsOpen(true);
+  const closeModal = () => setIsOpen(false);
   return (
     <>
-      <button className="btn" type="button">
+      <button onClick={openModal} className="btn" type="button">
         Track
       </button>
-      <Dialog open={isOpen} onClose={() => setIsOpen(false)}>
-        <Dialog.Panel>
-          <Dialog.Title>Deactivate account</Dialog.Title>
-          <Dialog.Description>
-            This will permanently deactivate your account
-          </Dialog.Description>
 
-          <p>
-            Are you sure you want to deactivate your account? All of your data
-            will be permanently removed. This action cannot be undone.
-          </p>
-
-          <button onClick={() => setIsOpen(false)}>Deactivate</button>
-          <button onClick={() => setIsOpen(false)}>Cancel</button>
-        </Dialog.Panel>
-      </Dialog>
+      <Transition appear show={isOpen} as={Fragment}>
+        <Dialog as="div" onClose={closeModal} className='dialog-container'>
+          <div className="min-h-screen px-4 text-center">
+            <Transition.Child as={Fragment} enter="ease-out duration-300"
+              enterFrom="opacity-0"
+              enterTo="opacity-100"
+              leave="ease-in duration-200"
+              leaveFrom="opacity-100"
+              leaveTo="opacity-0">
+            </Transition.Child>
+          </div>
+        </Dialog>
+      </Transition>
     </>
   )
 }
