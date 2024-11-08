@@ -6,7 +6,7 @@ import { connectToDB } from "../mongoose";
 import { scrapeAmazonProduct } from "../scraper";
 import { getAveragePrice, getHighestPrice, getLowestPrice } from '../utils'
 import { connect } from 'http2';
-import { generateEmailBody } from '../nodemailer';
+import { generateEmailBody, sendEmail } from '../nodemailer';
 import { User } from '@/app/types';
 
 export async function scrapAndStoreProducts(productUrl: string) {
@@ -94,8 +94,15 @@ export async function addUserEmailToProduct(productId: string, userEmail: string
       product.users.push({ email: userEmail });
 
       await product.save();
+      try {
+        const emailContent = await generateEmailBody(product, 'WELCOME');  // Await if needed
 
-      const emailContent = generateEmailBody(product, "WELCOME");
+        // Send the email content now
+        await sendEmail(emailContent, [userEmail]);
+      } catch (error) {
+        console.error('Error generating email:', error);
+      }
+
     }
   } catch (error) {
 
